@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from "axios";
-import { LOGIN_FAILED, LOGIN_PENDING, LOGIN_SUCCESS } from './actionTypes';
+import { LOGIN_FAILED, LOGIN_PENDING, LOGIN_SUCCESS, TODO_FAILED, TODO_PENDING, TODO_SUCCESS } from './actionTypes';
+import { useSelector } from 'react-redux';
+import { store } from '../store';
 
 
 export const signup = (obj)=>(dispatch) => {
@@ -27,5 +29,16 @@ export const login = (obj)=>(dispatch) => {
     dispatch({type:LOGIN_FAILED})
     alert("User not found!")
 
+})
+}
+export const getTodos=(dispatch)=>{
+
+    dispatch({type:TODO_PENDING})
+axios.get("https://task-management-backend-3gib.onrender.com/tasks").then((res)=>{
+    console.log(res.data);
+    dispatch({type:TODO_SUCCESS})
+}).catch((err)=>{
+    console.log(err);
+    dispatch({type:TODO_FAILED})
 })
 }
