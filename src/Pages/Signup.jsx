@@ -29,16 +29,16 @@ navi("/login")
 <Nav/>  <h1 className="text-white text-5xl p-4 pt-8 "style={{ backgroundColor: '#01111d' }}> Register Your Account Here</h1>
 
 <div style={{ backgroundColor: '#01111d' }} className='py-16' >
-<form className="w-1/2 bg-pink-50 mx-auto flex flex-col p-8 rounded-lg" onSubmit={handleClick} action="">
-  <label className="mb-2 text-black text-2xl">Email</label>
+<form className="w-1/2 border border-pink-200 mx-auto flex flex-col p-8 rounded-lg" onSubmit={handleClick} action="" style={{ backgroundColor: "#071a2a"}}>
+  <label className="mb-2 text-white text-2xl">Email</label>
   <input type="email" placeholder="Enter your Email..." onChange={(e)=>{setEmail(e.target.value)}} className="mb-4 py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
 
-  <label className="mb-2  text-black text-2xl">Username</label>
+  <label className="mb-2  text-white text-2xl">Username</label>
   <input type="text" placeholder="Enter your username..."onChange={(e)=>{setName(e.target.value)}}  className="mb-4 py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
 
-  <label className="mb-2  text-black text-2xl">Password</label>
+  <label className="mb-2  text-white text-2xl">Password</label>
   <input type="password" placeholder="Enter Password..." onChange={(e)=>{setPass(e.target.value)}}  className="mb-4 py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
-  <input style={{ backgroundColor: '#071a2a', color: 'white' }}  type="submit" placeholder="Register" className="mb-4 py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
+  <input style={{ backgroundColor: '#071a2a', color: 'white' }}  type="submit" placeholder="Register" className="mb-4 py-2 px-4 rounded-lg border border-pink-200 focus:outline-none focus:border-blue-500" />
 </form>
 
 </div>

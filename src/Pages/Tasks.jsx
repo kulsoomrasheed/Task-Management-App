@@ -4,111 +4,88 @@ import TodoItem from "../Components/TodoItem";
 import { getTodos } from "../redux/authReducer/action";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { getTasks, postTasks } from "../redux/taskReducer/action";
+import { useNavigate } from "react-router-dom";
 
-const initstate = [
-  { id: 1, title: "Task1", status: false },
-  { id: 2, title: "Task2", status: false },
-  { id: 3, title: "Task3", status: false },
-];
 
 const Tasks = () => {
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [todo, setTodo] = useState([]);
+    const [desc, setDesc] = useState("");
+    const dispatch=useDispatch()
+    const navigate = useNavigate()
+    const todo = useSelector((store) => store.taskReducer.tasks);
+   const {loading}=useSelector((store) => store.taskReducer);
+   
+    const obj={title,desc}
+    const handleAddTodo=()=>{
+      dispatch(postTasks(obj));
+      alert("A new task has been added")
+      navigate("/tasks")
+      dispatch(getTasks)
+      setDesc("")
+      setTitle("")
+    }
 
-  const dispatch = useDispatch();
-  const token = useSelector((store) => store.token);
-  console.log(token);
-  const handleAddTodo = () => {
-    const obj = { title, desc, status: "pending" };
-    axios
-      .post("https://task-management-backend-3gib.onrender.com/tasks", obj, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        fetchData();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
 
   useEffect(() => {
-    fetchData();
+    dispatch(getTasks);
   }, []);
-  const fetchData = () => {
-    axios
-      .get("https://task-management-backend-3gib.onrender.com/tasks", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setTodo(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-  const handleDelete=(_id)=>{
-    axios.delete(`https://task-management-backend-3gib.onrender.com/tasks/delete/${_id}`,{
-    
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-    }).then((res)=>{
-      console.log(res.data)
-      fetchData()
-    }).catch((err) => {
-  console.log(err.message);
-    })
-  }
-  const handleToggle=useCallback((_id)=>{
-    setTodo((prev)=>{
+
+
+     
+ 
+ /* const handleToggle=useCallback((_id)=>{
+    setTodos((prev)=>{
       return prev.map((el)=>{
   return el._id==_id?{...el,status: !el.status}:el
 })
     })
 
-  },[])
+  },[])*/
+
+
   return (
-    <div>
+    <div         style={{ backgroundColor: "#01111d" }}
+    >
       <Nav />
       <div
-        style={{ backgroundColor: "#01111d", color: "white" }}
-        className="py-12"
+        style={{ backgroundColor: "#01111d" }}
+        className="py-12 mx-auto w-96 gap-1 flex flex-col p-8 rounded-lg"
       >
-        <input
-          className="border border-gray-300 focus:outline-none"
+          <label className=" text-white ">Title</label>
+
+        <input 
+          className="border border-pink-300 focus:outline-none text-black"
           type="text"
           name="Enter Title"
           id=""
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
+          <label className=" text-white">Description</label>
+
         <input
-          className="border border-gray-300 focus:outline-none"
+          className="border  border-pink-300 focus:outline-none text-black"
           type="text"
           name="Enter Title"
           id=""
           onChange={(e) => setDesc(e.target.value)}
           value={desc}
         />
-        <button onClick={handleAddTodo} className="text-black bg-pink-600">
+        <button onClick={handleAddTodo} className=" bg-pink-600 text-white  my-3">
           Add
         </button>
       </div>
 
       <div
         style={{ backgroundColor: "#01111d", color: "white" }}
-        className="p-18 pb-24"
+        className="p-18 pb-24 mx-auto"
       >
-        {todo.map((el) => {
-          return <TodoItem key={el._id} {...el} handleToggle={handleToggle} handleDelete={handleDelete}/>;
+        {todo.length>0 && todo.map((el) => {
+          
+                    localStorage.setItem("user",el.userID)
+localStorage.setItem("username",el.username)
+          return <TodoItem key={el._id} {...el}  />;
         })}
       </div>
     </div>

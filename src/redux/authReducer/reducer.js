@@ -1,6 +1,5 @@
 import React from 'react'
 import { LOGIN_FAILED,SIGNUP_SUCCESS, LOGIN_PENDING, LOGIN_SUCCESS, TODO_PENDING, TODO_SUCCESS, TODO_FAILED } from './actionTypes'
-
 const initState={
     loading:false,
     auth:false,

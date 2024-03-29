@@ -23,22 +23,13 @@ export const login = (obj)=>(dispatch) => {
     dispatch({type:LOGIN_PENDING})
  axios.post("https://task-management-backend-3gib.onrender.com/user/login",obj).then((res)=>{
     dispatch({type:LOGIN_SUCCESS,payload:res.data.token})
-    console.log(res.data);
+    localStorage.setItem("token", res.data.token)
+    console.log(res.data.token);
+    alert("Login successfully!")
 }).catch((err)=>{
     console.log(err.message);
     dispatch({type:LOGIN_FAILED})
     alert("User not found!")
 
-})
-}
-export const getTodos=(dispatch)=>{
-
-    dispatch({type:TODO_PENDING})
-axios.get("https://task-management-backend-3gib.onrender.com/tasks").then((res)=>{
-    console.log(res.data);
-    dispatch({type:TODO_SUCCESS})
-}).catch((err)=>{
-    console.log(err);
-    dispatch({type:TODO_FAILED})
 })
 }
