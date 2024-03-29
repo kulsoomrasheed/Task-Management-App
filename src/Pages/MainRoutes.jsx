@@ -15,10 +15,10 @@ const MainRoutes = () => {
     <Route path='*' element={"404 Not Found!!!"}> </Route>
     <Route path='/login' element={<Login/>}> </Route>
     <Route path='/signup' element={<Signup/>}> </Route>
-    <Route path='/tasks' element={<Tasks/>}> </Route>
-    <Route path='/tasks/edit/:id' element={<EditTasks/>}> </Route>
+    <Route path='/tasks' element={<Private><Tasks/></Private>}> </Route>
+    <Route path='/tasks/edit/:id' element={<Private><EditTasks/></Private>}> </Route>
 
-    <Route path='/profile/:id' element={<EditProfile/>}> </Route>
+    <Route path='/profile/:id' element={<Private><EditProfile/></Private>}> </Route>
 
   </Routes>
 }
